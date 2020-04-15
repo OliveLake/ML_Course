@@ -49,5 +49,12 @@ def ml_loop():
         if not ball_served:
             comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_LEFT)
             ball_served = True
-        else:
-            comm.send_instruction(scene_info.frame, PlatformAction.SERVE_TO_RIGHT)
+         else:
+            ball_x = scene_info.ball[0]
+            platform_x = scene_info.platform[0]
+            if ball_x > platform_x:
+                comm.send_instruction(scene_info.frame, PlatformAction.MOVE_RIGHT)
+            elif ball_x < platform_x:
+                comm.send_instruction(scene_info.frame, PlatformAction.MOVE_LEFT)
+            else:
+                comm.send_instruction(scene_info.frame, PlatformAction.NONE)
